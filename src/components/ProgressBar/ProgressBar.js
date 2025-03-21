@@ -12,12 +12,12 @@ const SIZES = {
     "--radius": "4px",
   },
   medium: {
-    "--padding": "0",
+    "--padding": "0px",
     "--height": "12px",
     "--radius": "4px",
   },
   small: {
-    "--padding": "0",
+    "--padding": "0px",
     "--height": "8px",
     "--radius": "4px",
   },
