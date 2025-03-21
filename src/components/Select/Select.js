@@ -9,48 +9,58 @@ const Select = ({ label, value, onChange, children }) => {
   const displayedValue = getDisplayedValue(value, children);
 
   return (
-    <OuterWrapper>
-      <StyledIcon id="chevron-down" size="24" strokeWidth="2" />
-      <Wrapper value={value} onChange={onChange}>
+    <Wrapper>
+      <FakeSelect>
+        <Value>{displayedValue}</Value>
+        <StyledIcon id="chevron-down" size="24" strokeWidth="2" />
+      </FakeSelect>
+      <InvisibleSelect value={value} onChange={onChange}>
         {children}
-      </Wrapper>
-    </OuterWrapper>
+      </InvisibleSelect>
+    </Wrapper>
   );
 };
 
-const OuterWrapper = styled.div`
+const InvisibleSelect = styled.select`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  /* set the width to the content (does not work with firefox) */
+  /* field-sizing: content; */
+`;
+
+const Wrapper = styled.div`
   position: relative;
+  overflow: hidden;
   width: fit-content;
   color: ${COLORS.gray700};
+  border: none;
+  border-radius: 8px;
+  &:has(${InvisibleSelect}:focus) {
+    outline-style: solid;
+  }
   &:hover {
     color: ${COLORS.black};
   }
 `;
 
-const Wrapper = styled.select`
+const FakeSelect = styled.span`
+  line-height: 1;
+  padding: 0.75rem 1rem 0.75rem 1rem;
   background-color: ${COLORS.transparentGray15};
-  border: none;
-  border-radius: 8px;
   font-size: 1rem;
   font-weight: 400;
   font-family: "Roboto", sans-serif;
-  line-height: 1;
-  padding: 0.75rem 3.25rem 0.75rem 1rem;
-  /* position: relative; */
-  /* remove the native chevron */
-  appearance: none;
-  /* set the width to the content (does not work with firefox) */
-  field-sizing: content;
-
-  &:focus {
-    outline-color: ${COLORS.primary};
-  }
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 `;
 
-const StyledIcon = styled(Icon)`
-  position: absolute;
-  right: 12px;
-  top: calc(50% - 12px);
-`;
+const Value = styled.div``;
+
+const StyledIcon = styled(Icon)``;
 
 export default Select;
