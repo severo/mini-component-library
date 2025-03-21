@@ -32,30 +32,40 @@ const ProgressBar = ({ value, size }) => {
       aria-valuemax="100"
       style={SIZES[size] ?? SIZES.medium}
     >
-      <Bar role="presentation" style={{ "--width": value + "%" }} />
+      <VisuallyHidden>{value}%</VisuallyHidden>
+      <BarWrapper>
+        <Bar role="presentation" style={{ "--width": value + "%" }} />
+      </BarWrapper>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.span`
-  display: inline-block;
+const Wrapper = styled.div`
   width: 100%;
   background-color: ${COLORS.transparentGray15};
   box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
   border-radius: calc(var(--radius) + var(--padding));
+  /* to ensure the inner bar respects the border radius when it reaches 99% */
   padding: var(--padding);
 `;
 
-const Bar = styled.span`
-  display: block;
+const BarWrapper = styled.div`
+  border-radius: calc(var(--radius));
+  overflow: hidden;
+`;
+
+const Bar = styled.div`
   width: 100%;
-  background: linear-gradient(
+  /* alternative to overflow: hidden in Wrapper */
+  /* background: linear-gradient(
     to right,
     ${COLORS.primary} 0% var(--width),
     transparent var(--width)
-  );
+  ); */
+  background: ${COLORS.primary};
+  width: var(--width);
   height: var(--height);
-  border-radius: var(--radius);
+  border-radius: var(--radius) 0 0 var(--radius);
 `;
 
 export default ProgressBar;
