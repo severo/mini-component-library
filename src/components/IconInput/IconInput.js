@@ -34,7 +34,6 @@ const IconInput = ({ label, icon, width = 250, size, ...delegated }) => {
         style={{
           "--height": style.height / 16 + "rem",
           "--width": width + "px",
-          "--padding-left": style.icon * 1.5 + "px",
           "--font-size": style.fontSize / 16 + "rem",
           "--border-thickness": style.borderThickness + "px",
         }}
@@ -65,7 +64,7 @@ const IconElement = styled(Icon)`
 const InputElement = styled.input`
   height: var(--height);
   width: var(--width);
-  padding-left: var(--padding-left);
+  padding-left: var(--height);
   font-size: var(--font-size);
   border: none;
   font-weight: 700;
