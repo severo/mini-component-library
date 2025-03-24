@@ -9,24 +9,20 @@ import VisuallyHidden from "../VisuallyHidden";
 const STYLES = {
   small: {
     icon: 16,
-    wrapper: {
-      height: "24px",
-      borderBottomWidth: "1px",
-    },
     element: {
+      height: 24 / 16 + "rem",
       paddingLeft: "24px",
       fontSize: 14 / 16 + "rem",
+      borderBottomWidth: "1px",
     },
   },
   large: {
     icon: 24,
-    wrapper: {
-      height: "36px",
-      borderBottomWidth: "2px",
-    },
     element: {
+      height: 36 / 16 + "rem",
       paddingLeft: "36px",
       fontSize: 18 / 16 + "rem",
+      borderBottomWidth: "2px",
     },
   },
 };
@@ -34,7 +30,7 @@ const STYLES = {
 const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
   const style = STYLES[size];
   return (
-    <Wrapper style={{ ...style.wrapper, width: width + "px" }}>
+    <Wrapper style={{ width: width + "px" }}>
       <VisuallyHidden>{label}</VisuallyHidden>
       <IconElement id={icon} size={style.icon} />
       <InputElement
@@ -49,9 +45,6 @@ const Wrapper = styled.label`
   box-sizing: border-box;
   display: block;
   position: relative;
-  border-color: black;
-  border-style: solid;
-  border-width: 0;
   color: ${COLORS.gray700};
   &:hover {
     color: black;
@@ -72,12 +65,15 @@ const InputElement = styled.input`
   border: none;
   font-weight: 700;
   color: inherit;
+  border-color: black;
+  border-style: solid;
+  border-width: 0;
   &::placeholder {
     color: ${COLORS.gray500};
     font-weight: 400;
   }
   &:focus {
-    outline-offset: 2px 2px 3px 2px;
+    outline-offset: 2px;
   }
 `;
 
