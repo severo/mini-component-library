@@ -9,32 +9,35 @@ import VisuallyHidden from "../VisuallyHidden";
 const STYLES = {
   small: {
     icon: 16,
-    element: {
-      height: 24 / 16 + "rem",
-      paddingLeft: "24px",
-      fontSize: 14 / 16 + "rem",
-      borderBottomWidth: "1px",
-    },
+    height: 24,
+    fontSize: 14,
+    borderThickness: 1,
   },
   large: {
     icon: 24,
-    element: {
-      height: 36 / 16 + "rem",
-      paddingLeft: "36px",
-      fontSize: 18 / 16 + "rem",
-      borderBottomWidth: "2px",
-    },
+    height: 36,
+    fontSize: 18,
+    borderThickness: 2,
   },
 };
 
 const IconInput = ({ label, icon, width = 250, size, ...delegated }) => {
   const style = STYLES[size];
+  if (style === undefined) {
+    throw new Error("Unknown size");
+  }
   return (
     <Wrapper>
       <VisuallyHidden>{label}</VisuallyHidden>
       <IconElement id={icon} size={style.icon} />
       <InputElement
-        style={{ ...style.element, "--width": width + "px" }}
+        style={{
+          "--height": style.height / 16 + "rem",
+          "--width": width + "px",
+          "--padding-left": style.icon * 1.5 + "px",
+          "--font-size": style.fontSize / 16 + "rem",
+          "--border-thickness": style.borderThickness + "px",
+        }}
         {...delegated}
       ></InputElement>
     </Wrapper>
@@ -60,14 +63,17 @@ const IconElement = styled(Icon)`
 `;
 
 const InputElement = styled.input`
-  height: 100%;
+  height: var(--height);
   width: var(--width);
+  padding-left: var(--padding-left);
+  font-size: var(--font-size);
   border: none;
   font-weight: 700;
   color: inherit;
   border-color: black;
   border-style: solid;
   border-width: 0;
+  border-bottom-width: var(--border-thickness);
   &::placeholder {
     color: ${COLORS.gray500};
     font-weight: 400;
