@@ -30,10 +30,13 @@ const STYLES = {
 const IconInput = ({ label, icon, width = 250, size, ...delegated }) => {
   const style = STYLES[size];
   return (
-    <Wrapper style={{ width: width + "px" }}>
+    <Wrapper>
       <VisuallyHidden>{label}</VisuallyHidden>
       <IconElement id={icon} size={style.icon} />
-      <InputElement style={{ ...style.element }} {...delegated}></InputElement>
+      <InputElement
+        style={{ ...style.element, width: width + "px" }}
+        {...delegated}
+      ></InputElement>
     </Wrapper>
   );
 };
