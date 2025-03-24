@@ -34,7 +34,7 @@ const IconInput = ({ label, icon, width = 250, size, ...delegated }) => {
       <VisuallyHidden>{label}</VisuallyHidden>
       <IconElement id={icon} size={style.icon} />
       <InputElement
-        style={{ ...style.element, width: width + "px" }}
+        style={{ ...style.element, "--width": width + "px" }}
         {...delegated}
       ></InputElement>
     </Wrapper>
@@ -61,7 +61,7 @@ const IconElement = styled(Icon)`
 
 const InputElement = styled.input`
   height: 100%;
-  width: 100%;
+  width: var(--width);
   border: none;
   font-weight: 700;
   color: inherit;
